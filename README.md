@@ -1,6 +1,4 @@
 # VizTracer
-## Ссылка на документацию
-[VizTracer](https://github.com/gaogaotiantian/viztracer)
 ## Список авторов
 Имя | Группа | Разделы
 | --- | --- | ---
@@ -58,5 +56,8 @@
 ## Приложение
 ### Словарь терминов
 ### Ссылки на использованные документы
+- [VizTracer репозиторий](https://github.com/gaogaotiantian/viztracer)
+- [VizTracer документация для пользователя](https://viztracer.readthedocs.io/en/stable/)
+- [VizTracer описание проекта на Medium](https://gaogaotiantian.medium.com/why-you-should-try-viztracer-to-understand-your-python-program-9e08ccbd5e97)
 ### Определения
 ### Другое
