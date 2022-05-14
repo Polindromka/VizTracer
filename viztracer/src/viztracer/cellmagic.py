@@ -3,7 +3,6 @@
 
 try:
     from IPython.core.magic import cell_magic, magics_class, Magics, needs_local_scope  # type: ignore
-    from IPython import get_ipython
     @magics_class
     class VizTracerMagics(Magics):
         @needs_local_scope

@@ -193,7 +193,7 @@ class AstTransformer(ast.NodeTransformer):
             event="instant"
         )
 
-    def get_add_variable_node(self, name, var_node, event) -> ast.Expr:
+    def get_add_variable_node(self, name: str, var_node: ast.expr, event: str) -> ast.Expr:
         node_instrument = ast.Expr(
             value=ast.Call(
                 func=ast.Attribute(
@@ -211,7 +211,7 @@ class AstTransformer(ast.NodeTransformer):
         )
         return node_instrument
 
-    def get_add_func_exec_node(self, name, val, lineno) -> ast.Expr:
+    def get_add_func_exec_node(self, name: str, val: ast.Name, lineno: int) -> ast.Expr:
         node_instrument = ast.Expr(
             value=ast.Call(
                 func=ast.Attribute(
@@ -321,20 +321,20 @@ class SourceProcessor:
 
         return "\n".join(new_lines)
 
-    def line_transform(self, re_match):
+    def line_transform(self, re_match: re.Match):
         return f"{re_match.group(1)}__viz_tracer__.{re_match.group(2)}"
 
-    def line_transform_condition(self, re_match):
+    def line_transform_condition(self, re_match: re.Match):
         return f"{re_match.group(1)}if {re_match.group(3)}: __viz_tracer__.{re_match.group(2)};"
 
-    def inline_transform(self, re_match):
+    def inline_transform(self, re_match: re.Match):
         stmt = re_match.group(1)
         if "=" in stmt:
             val_assigned = stmt[:stmt.index("=")].strip()
             return f"{stmt}; __viz_tracer__.log_var('{val_assigned}', ({val_assigned}))"
         return f"{stmt}; __viz_tracer__.log_instant('{stmt.strip()}')"
 
-    def inline_transform_condition(self, re_match):
+    def inline_transform_condition(self, re_match: re.Match):
         stmt = re_match.group(1)
         if "=" in stmt:
             val_assigned = stmt[:stmt.index("=")].strip()
