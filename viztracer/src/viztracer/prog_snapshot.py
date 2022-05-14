@@ -17,6 +17,9 @@ from .util import color_print
 
 class Frame:
     def __init__(self, parent, node):
+        '''
+        parent, node: Frame or None
+        '''
         self.parent = parent
         self.node = node
         self.curr_children_idx = 0
@@ -30,11 +33,11 @@ class Frame:
         return self.__curr_children_idx
 
     @curr_children_idx.setter
-    def curr_children_idx(self, idx):
+    def curr_children_idx(self, idx: int):
         self.code_string = None
         self.__curr_children_idx = idx
 
-    def show(self, p):
+    def show(self, p: print):
         if self.code_string:
             p(self.code_string)
             return
@@ -100,7 +103,7 @@ class CounterEvents:
     def __init__(self):
         self._events = []
 
-    def add_event(self, event):
+    def add_event(self, event: dict):
         # The events have to be added in order
         if self._events:
             args = self._events[-1]["args"].copy()
@@ -112,11 +115,11 @@ class CounterEvents:
             "args": args
         })
 
-    def normalize(self, first_ts):
+    def normalize(self, first_ts: int):
         for event in self._events:
             event["ts"] -= first_ts
 
-    def get_args(self, ts):
+    def get_args(self, ts: int):
         ts_lst = [event["ts"] for event in self._events]
         idx = bisect.bisect(ts_lst, ts)
         if idx == 0:
