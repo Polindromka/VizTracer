@@ -536,7 +536,7 @@ class VizUI:
 
         return True, None
 
-    def _wait_attach(self, interval):
+    def _wait_attach(self, interval: int):
         # interval == 0 means waiting for CTRL+C
         try:
             if interval > 0:
