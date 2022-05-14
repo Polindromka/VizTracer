@@ -3,12 +3,17 @@
 
 try:
     from IPython.core.magic import cell_magic, magics_class, Magics, needs_local_scope  # type: ignore
-
+    from IPython import get_ipython
     @magics_class
     class VizTracerMagics(Magics):
         @needs_local_scope
         @cell_magic
-        def viztracer(self, line, cell, local_ns):
+        def viztracer(self, line: str, cell: str, local_ns: dict):
+            '''
+            line : str
+            cell : str
+            local_ns : dict
+            '''
             from .viztracer import VizTracer
             from .viewer import ServerThread
             from IPython.display import display  # type: ignore
@@ -35,6 +40,11 @@ except ImportError:  # pragma: no cover
 
 
 def load_ipython_extension(ipython):
+    '''
+        ipython = get_ipython()
+        Get the global InteractiveShell instance.
+        Example: google.colab._shell.Shell
+    '''
     """
     Use `%load_ext viztracer`
     """
