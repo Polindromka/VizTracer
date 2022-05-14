@@ -45,7 +45,7 @@ if sys.platform == "win32":
         color_support = False
 
 
-def color_print(color, s: str, **kwargs):
+def color_print(color: str, s: str, **kwargs):
     if color_support:
         print(bcolors.__getattribute__(color) + s + bcolors.ENDC, **kwargs)
     else:  # pragma: no cover
@@ -99,7 +99,7 @@ def time_str_to_us(t_s: str) -> float:
 
 
 # https://github.com/giampaolo/psutil
-def pid_exists(pid):
+def pid_exists(pid: int):
     """Check whether pid exists in the current process table.
     UNIX only.
     """

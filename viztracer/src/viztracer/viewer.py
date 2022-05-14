@@ -24,7 +24,7 @@ dir_lock = threading.Lock()
 
 
 @contextlib.contextmanager
-def chdir_temp(d):
+def chdir_temp(d: str):
     with dir_lock:
         curr_cwd = os.getcwd()
         os.chdir(d)
@@ -148,7 +148,7 @@ class DirectoryHandler(HttpHandler):
                 return self.list_directory(path)
         return super().send_head()
 
-    def list_directory(self, path):  # pragma: no cover
+    def list_directory(self, path: str):  # pragma: no cover
         """
         Almost the same as SimpleHTTPRequestHandler.list_directory, but
             * Does not display file that does not end with json
@@ -316,7 +316,7 @@ class DirectoryViewer:
         server = self.servers[path]
         return server.link
 
-    def create_server(self, path) -> ServerThread:
+    def create_server(self, path: str) -> ServerThread:
         max_port_number = self.max_port_number
         ports_used = set((serv.port for serv in self.servers.values()))
         if len(ports_used) == max_port_number:

@@ -15,7 +15,7 @@ from .prog_snapshot import ProgSnapshot
 
 
 class Simulator:
-    def __init__(self, json_string, no_clear=False, extra_newline=False):
+    def __init__(self, json_string: str, no_clear=False, extra_newline=False):
         try:
             from rich.console import Console  # type: ignore
             from rich.syntax import Syntax  # type: ignore
@@ -50,7 +50,7 @@ class Simulator:
         if not self.no_clear:
             os.system("cls" if os.name == "nt" else "clear")
 
-    def parse_cmd(self, cmd):
+    def parse_cmd(self, cmd: str):
         args = cmd.split()
         if not args:
             return

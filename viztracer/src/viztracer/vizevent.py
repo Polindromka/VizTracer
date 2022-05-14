@@ -1,9 +1,7 @@
 # Licensed under the Apache License: http://www.apache.org/licenses/LICENSE-2.0
 # For details: https://github.com/gaogaotiantian/viztracer/blob/master/NOTICE.txt
-
-
-from typing import TYPE_CHECKING
-
+from types import TracebackType
+from typing import TYPE_CHECKING, Optional, Type
 
 if TYPE_CHECKING:
     from .viztracer import VizTracer  # pragma: no cover
@@ -20,7 +18,7 @@ class VizEvent:
     def __enter__(self):
         self.start = self._tracer.getts()
 
-    def __exit__(self, type, value, trace):
+    def __exit__(self, type: Optional[Type[BaseException]], value: Optional[BaseException], trace:  Optional[TracebackType]):
         dur = self._tracer.getts() - self.start
         raw_data = {
             "ph": "X",
