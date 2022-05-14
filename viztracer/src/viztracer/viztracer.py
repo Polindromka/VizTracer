@@ -2,12 +2,13 @@
 # For details: https://github.com/gaogaotiantian/viztracer/blob/master/NOTICE.txt
 
 import builtins
+import enum
 import multiprocessing
 import objprint  # type: ignore
 import os
 import signal
 import sys
-from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, Optional, Sequence, Tuple, Union, Type
 
 from .report_builder import ReportBuilder
 from .tracer import _VizTracer
@@ -135,9 +136,17 @@ class VizTracer(_VizTracer):
             sys.exit(1)
 
         def signal_start(signum, frame):
+            '''
+            signum is element of enam of Signals
+            frame is stake of frames
+            '''
             self.start()
 
         def signal_stop(signum, frame):
+            '''
+            signum is element of enam of Signals
+            frame is stake of frames
+            '''
             self.stop()
             self.save()
 
