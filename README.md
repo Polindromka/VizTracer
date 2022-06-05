@@ -200,6 +200,7 @@ if isinstance(wait, str):
     while wait not in line:
         line = p.stdout.readline().decode("utf-8")
 ```
+Что дало прирост в скорости в 1,5 раза. Поэтому было принято убрать "баги" и "костыли" из исходного кода, тем самым достигнув поставленной цели по повышению скорости записи в файл.
 #### Код
 https://github.com/Polindromka/VizTracer/commit/310195b2b6936a346e48b37295cdf41e4a1636ab
 #### Оценка результативности
