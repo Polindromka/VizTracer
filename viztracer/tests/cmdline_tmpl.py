@@ -82,18 +82,20 @@ class CmdlineTmpl(BaseTmpl):
                 sig = send_sig
                 if os.getenv("GITHUB_ACTIONS"):
                     # github action is slower
-                    wait = 3
+                    wait = 5
                 else:
-                    wait = 1
+                    wait = 2
             p = subprocess.Popen(cmd_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             if isinstance(wait, str):
-                line = p.stdout.readline().decode("utf-8")
-                while wait not in line:
+                while True:
                     line = p.stdout.readline().decode("utf-8")
+                    if wait in line:
+                        time.sleep(0.5)
+                        break
             elif isinstance(wait, (int, float)):
                 time.sleep(wait)
             p.send_signal(sig)
-            p.wait(timeout=30)
+            p.wait(timeout=60)
             stdout, stderr = p.stdout.read(), p.stderr.read()
             p.stdout.close()
             p.stderr.close()
@@ -105,9 +107,9 @@ class CmdlineTmpl(BaseTmpl):
                 return None
         else:
             if os.getenv("COVERAGE_RUN"):
-                timeout = 45
+                timeout = 90
             else:
-                timeout = 30
+                timeout = 60
             try:
                 result = subprocess.run(cmd_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
             except subprocess.TimeoutExpired as e:
